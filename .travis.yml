@@ -1,11 +1,11 @@
 language: julia
 os:
   - linux
-  - osx
+  # - osx
 julia:
-  - 1.0
+  # - 1.0
   - 1.1
-  - nightly
+  # - nightly
 matrix:
   allow_failures:
     - julia: nightly
@@ -16,8 +16,8 @@ addons:
   apt_packages:
     - gfortran
 before_install:
-  - julia -e 'using Pkg; Pkg.rm("PowerModels"); Pkg.rm("PowerModels")'
-  - julia -e 'using Pkg; Pkg.update()'
+  - julia -e '] add Juniper#master'
+  - julia -e '] add InfrastructureModels#moi-2'
 after_success:
   - julia -e 'using Pkg; Pkg.add("Coverage"); cd(Pkg.dir("PowerModels")); using Coverage; Codecov.submit(process_folder())'
 jobs:
