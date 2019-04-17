@@ -1,31 +1,5 @@
 language: julia
 os:
   - linux
-  # - osx
 julia:
-  # - 1.0
   - 1.1
-  # - nightly
-matrix:
-  allow_failures:
-    - julia: nightly
-cache:
- directories:
-   - /home/travis/.julia
-addons:
-  apt_packages:
-    - gfortran
-before_install:
-  - julia -e '] add Juniper#master'
-  - julia -e '] add InfrastructureModels#moi-2'
-after_success:
-  - julia -e 'using Pkg; Pkg.add("Coverage"); cd(Pkg.dir("PowerModels")); using Coverage; Codecov.submit(process_folder())'
-jobs:
-  include:
-    - stage: "Documentation"
-      julia: 1.1
-      os: linux
-      script:
-        - julia --project=docs/ -e 'using Pkg; Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
-        - julia --project=docs/ docs/make.jl
-      after_success: skip
